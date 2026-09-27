@@ -4,10 +4,14 @@
 
 ## 启动
 
+需要 Node.js 20.19+ 或 22.12+。
+
 ```sh
 npm install
-npm run dev
+npm run start
 ```
+
+开发服务器默认运行在 `http://localhost:9000/`，并尝试自动打开浏览器。
 
 登录账号：`admin`，密码：`admin`。这是仅用于本地学习的演示账号，不提供真实身份验证。
 
@@ -20,12 +24,14 @@ npm run preview
 
 ## 技术栈
 
-- Vue 3.2 + `<script setup>` + JavaScript
-- Vite 4
+- Vue 3.2.47 + `<script setup>` + JavaScript
+- Vite 8.3.1 + `@vitejs/plugin-vue` 6.0.9
 - Pinia 2.0.22
-- Vue Router 4
-- Element Plus
-- Axios
+- Vue Router 4.2.5
+- Element Plus 2.3.14
+- Axios 1.6.8
+
+生产构建使用 Vite 8 内置的 Rolldown；代码分包规则配置在 `vite.config.js` 的 `build.rolldownOptions.output.codeSplitting` 中。
 
 ## 数据与请求流程
 
