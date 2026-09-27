@@ -8,11 +8,13 @@ export default defineConfig({
     open: true
   },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          'vue-vendor': ['vue', 'vue-router', 'pinia'],
-          'element-plus': ['element-plus', '@element-plus/icons-vue'],
+        codeSplitting: {
+          groups: [
+            { name: 'vue-vendor', test: /node_modules\/(vue|vue-router|pinia)\// },
+            { name: 'element-plus', test: /node_modules\/(element-plus|@element-plus\/icons-vue)\// },
+          ],
         },
       },
     },
