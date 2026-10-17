@@ -36,14 +36,63 @@ async function demonstrateError() {
 
 onMounted(requestUsers)
 
-const code = `try {
+const code = `// api/users.js
+import http from './http'
+export const userApi = {
+  list: () => http.get('/users'),
+}
+
+// ApiView.vue
+<script setup>
+import { onMounted, ref } from 'vue'
+import { userApi } from '../api/users'
+import http from '../api/http'
+
+const users = ref([])
+const loading = ref(false)
+const error = ref('')
+
+async function requestUsers() {
   loading.value = true
-  users.value = await userApi.list()
-} catch (error) {
-  message.value = error.message
-} finally {
-  loading.value = false
-}`
+  error.value = ''
+  try {
+    users.value = await userApi.list()
+  } catch (cause) {
+    error.value = cause.response?.data?.message || cause.message
+  } finally {
+    loading.value = false
+  }
+}
+
+async function demonstrate404() {
+  loading.value = true
+  error.value = ''
+  try {
+    await http.get('/not-a-real-endpoint')
+  } catch (cause) {
+    error.value = cause.response?.data?.message || cause.message
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(requestUsers)
+<\/script>
+
+<template>
+  <el-button :loading="loading" @click="requestUsers">重新请求</el-button>
+  <el-button :loading="loading" @click="demonstrate404">演示 404</el-button>
+  <el-alert v-if="error" :title="error" type="error" :closable="false" />
+  <el-table v-loading="loading" :data="users">
+    <el-table-column prop="name" label="姓名" />
+    <el-table-column prop="email" label="邮箱" />
+  </el-table>
+</template>`
+
+const resources = [
+  { label: 'Axios 实例', url: 'https://axios-http.com/docs/instance' },
+  { label: '错误处理', url: 'https://axios-http.com/docs/handling_errors' },
+]
 </script>
 
 <template>
@@ -53,6 +102,7 @@ const code = `try {
     description="复用现有只读 Mock 用户接口，演示请求、加载、响应数据与错误处理，不会更改用户数据。"
     :concepts="['接口模块封装请求方法，页面不直接拼接 CRUD 逻辑。', 'loading 状态反馈请求过程，finally 确保状态复位。', '失败时保留可读错误信息；错误通知仍由现有 Axios 拦截器处理。']"
     :code="code"
+    :resources="resources"
   >
     <section class="content-card playground-card">
       <div class="playground-title"><div><h2>只读用户列表接口</h2><p>GET /api/users · 本地 Mock 延迟约 250ms</p></div><el-tag type="success" effect="plain">只读请求</el-tag></div>
@@ -78,7 +128,7 @@ const code = `try {
 <style scoped>
 .api-actions{margin-bottom:2px}
 .api-table{width:100%;border-radius:8px}
-.api-table :deep(.cell){font-size:10px}
+.api-table :deep(.cell){font-size:14px}
 .playground-content :deep(.el-alert){margin-bottom:2px}
 @media(max-width:600px){.api-actions .demo-muted{width:100%}}
 </style>

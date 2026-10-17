@@ -11,13 +11,33 @@ watch(count, (value) => {
   watchMessage.value = `watch 观察到 count 更新为 ${value}`
 })
 
-const code = `const count = ref(1)
+const code = `<script setup>
+import { computed, reactive, ref, watch } from 'vue'
+
+const count = ref(1)
 const person = reactive({ name: '小林' })
 const doubled = computed(() => count.value * 2)
+const watchMessage = ref('修改计数，观察 watch 的反馈。')
 
 watch(count, (value) => {
-  console.log('count 更新为', value)
-})`
+  watchMessage.value = 'watch 观察到 count 更新为 ' + value
+})
+<\/script>
+
+<template>
+  <button @click="count -= 1">减少</button>
+  <button @click="count += 1">增加</button>
+  <p>count: {{ count }} · doubled: {{ doubled }}</p>
+  <label>姓名 <input v-model="person.name" /></label>
+  <p>你好，{{ person.name }}</p>
+  <p>{{ watchMessage }}</p>
+</template>`
+
+const resources = [
+  { label: '响应式基础', url: 'https://vuejs.org/guide/essentials/reactivity-fundamentals.html' },
+  { label: '计算属性', url: 'https://vuejs.org/guide/essentials/computed.html' },
+  { label: '侦听器', url: 'https://vuejs.org/guide/essentials/watchers.html' },
+]
 </script>
 
 <template>
@@ -27,6 +47,7 @@ watch(count, (value) => {
     description="通过 ref、reactive、computed 和 watch，观察数据变化如何驱动界面更新。"
     :concepts="['ref 适合基本类型及需要整体替换的值。', 'reactive 为对象属性建立响应式追踪。', 'computed 派生状态；watch 在依赖变化时执行副作用。']"
     :code="code"
+    :resources="resources"
   >
     <section class="content-card playground-card">
       <div class="playground-title"><div><h2>响应式数据实验</h2><p>点击按钮或编辑姓名，查看响应式状态与派生值。</p></div><el-tag type="success" effect="plain">Composition API</el-tag></div>

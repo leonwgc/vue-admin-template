@@ -17,11 +17,11 @@ const emit = defineEmits(['increment'])
 
 <style scoped>
 .message-card{padding:15px;border:1px solid #e8ebfc;border-radius:9px;background:#fafaff}
-.message-heading{display:flex;align-items:center;justify-content:space-between;color:#424d60;font-size:11px}
-.message-heading span{padding:3px 6px;border-radius:5px;background:#eff1ff;color:#6879e8;font-size:9px}
-.message-card p{margin:10px 0;color:#7e8898;font-size:10px}
+.message-heading{display:flex;align-items:center;justify-content:space-between;color:#424d60;font-size:14px}
+.message-heading span{padding:3px 6px;border-radius:5px;background:#eff1ff;color:#6879e8;font-size:12px}
+.message-card p{margin:10px 0;color:#7e8898;font-size:14px}
 .message-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .message-footer :deep(.el-button){font-size:10px}
 .message-footer :deep(.el-button--small){height:27px;padding:0 9px}
-.message-card small{color:#929baa;font-size:9px}
+.message-card small{color:#929baa;font-size:12px}
 </style>

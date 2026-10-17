@@ -26,31 +26,28 @@ function logout() {
         <el-menu-item index="/users">
           <el-icon><User /></el-icon><span>用户管理</span>
         </el-menu-item>
-        <el-sub-menu index="vue-examples">
-          <template #title><el-icon><CollectionTag /></el-icon><span>Vue 3 示例</span></template>
-          <el-sub-menu index="vue-basics">
-            <template #title>Vue 基础</template>
-            <el-menu-item index="/examples/reactivity">响应式与组合式 API</el-menu-item>
-            <el-menu-item index="/examples/lifecycle">生命周期与侦听</el-menu-item>
-          </el-sub-menu>
-          <el-sub-menu index="vue-components">
-            <template #title>组件</template>
-            <el-menu-item index="/examples/components">组件通信</el-menu-item>
-          </el-sub-menu>
-          <el-sub-menu index="vue-state">
-            <template #title>状态管理</template>
-            <el-menu-item index="/examples/pinia">Pinia</el-menu-item>
-          </el-sub-menu>
-          <el-sub-menu index="vue-routing">
-            <template #title>路由</template>
-            <el-menu-item index="/examples/router">Vue Router</el-menu-item>
-          </el-sub-menu>
-          <el-sub-menu index="vue-practice">
-            <template #title>开发实践</template>
-            <el-menu-item index="/examples/forms">表单与校验</el-menu-item>
-            <el-menu-item index="/examples/directives">自定义指令</el-menu-item>
-            <el-menu-item index="/examples/api">API 请求</el-menu-item>
-          </el-sub-menu>
+        <el-sub-menu index="vue-basics">
+          <template #title>Vue 基础</template>
+          <el-menu-item index="/examples/reactivity">响应式与组合式 API</el-menu-item>
+          <el-menu-item index="/examples/lifecycle">生命周期与侦听</el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu index="vue-components">
+          <template #title>组件</template>
+          <el-menu-item index="/examples/components">组件通信</el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu index="vue-state">
+          <template #title>状态管理</template>
+          <el-menu-item index="/examples/pinia">Pinia</el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu index="vue-routing">
+          <template #title>路由</template>
+          <el-menu-item index="/examples/router">Vue Router</el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu index="vue-practice">
+          <template #title>开发实践</template>
+          <el-menu-item index="/examples/forms">表单与校验</el-menu-item>
+          <el-menu-item index="/examples/directives">自定义指令</el-menu-item>
+          <el-menu-item index="/examples/api">API 请求</el-menu-item>
         </el-sub-menu>
       </el-menu>
       <div class="sidebar-foot"><span class="status-dot"></span>本地 Mock 数据已就绪</div>
@@ -82,6 +79,16 @@ function logout() {
   color: var(--blue);
 }
 
+.nav-menu :deep(.el-sub-menu.is-active > .el-sub-menu__title) {
+  background-color: transparent;
+  color: #707a8a;
+}
+
+.nav-menu :deep(.el-sub-menu.is-active > .el-sub-menu__title:hover) {
+  background-color: #f6f7fc;
+  color: var(--blue);
+}
+
 .nav-menu :deep(.el-sub-menu .el-menu-item) {
   min-width: 0;
   height: 38px;
@@ -90,10 +97,4 @@ function logout() {
   font-size: 11px;
 }
 
-.nav-menu :deep(.el-sub-menu .el-sub-menu__title) {
-  height: 38px;
-  padding-right: 12px;
-  padding-left: 32px !important;
-  font-size: 11px;
-}
 </style>

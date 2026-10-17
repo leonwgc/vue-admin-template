@@ -12,16 +12,44 @@ function setKeyword(value) {
   router.push({ name: 'example-router', params: { demoId: demoId.value }, query: { ...route.query, keyword: value } })
 }
 
-const code = `// 通过 RouterLink 导航
-<RouterLink :to="{ name: 'example-router',
-  params: { demoId: 'profile' },
-  query: { keyword: 'Vue' } }">
-  打开详情
-</RouterLink>
+const code = `// router/index.js
+{
+  path: 'examples/router/:demoId?',
+  name: 'example-router',
+  component: () => import('../views/examples/RouterView.vue'),
+}
 
+// RouterView.vue
+<script setup>
+import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
-route.params.demoId
-route.query.keyword`
+const router = useRouter()
+
+function openProfile() {
+  router.push({
+    name: 'example-router',
+    params: { demoId: 'profile' },
+    query: { keyword: 'Vue' },
+  })
+}
+<\/script>
+
+<template>
+  <RouterLink :to="{ name: 'example-router',
+    params: { demoId: 'settings' },
+    query: { keyword: 'Router' } }">
+    设置
+  </RouterLink>
+  <button @click="openProfile">个人资料</button>
+  <p>params: {{ route.params.demoId }}</p>
+  <p>query: {{ route.query.keyword }}</p>
+</template>`
+
+const resources = [
+  { label: 'Vue Router 指南', url: 'https://router.vuejs.org/guide/' },
+  { label: '动态路由匹配', url: 'https://router.vuejs.org/guide/essentials/dynamic-matching.html' },
+  { label: '编程式导航', url: 'https://router.vuejs.org/guide/essentials/navigation.html' },
+]
 </script>
 
 <template>
@@ -31,6 +59,7 @@ route.query.keyword`
     description="在示例路由内使用 RouterLink 和编程式导航，并观察动态 params 与 query 参数。"
     :concepts="['RouterLink 适合声明式页面跳转。', 'useRoute 读取当前 params 和 query。', 'useRouter 执行编程式跳转；本示例不改动全局登录守卫。']"
     :code="code"
+    :resources="resources"
   >
     <section class="content-card playground-card">
       <div class="playground-title"><div><h2>路由参数实验</h2><p>使用链接切换动态路由参数，再更新 query 字符串。</p></div><el-tag type="warning" effect="plain">params · query</el-tag></div>
@@ -52,7 +81,7 @@ route.query.keyword`
 <style scoped>
 .route-state{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .route-state>div{display:grid;gap:7px;padding:12px;border-radius:8px;background:#f7f8fc}
-.route-state strong{color:#465269;font-size:12px;overflow-wrap:anywhere}
-.route-link{padding:7px 10px;border:1px solid #e9edf3;border-radius:7px;color:#697587;font-size:10px}
+.route-state strong{color:#465269;font-size:14px;overflow-wrap:anywhere}
+.route-link{padding:7px 10px;border:1px solid #e9edf3;border-radius:7px;color:#697587;font-size:14px}
 .route-link.router-link-active{border-color:#dce1ff;background:#f1f3ff;color:#5d70e2}
 </style>
