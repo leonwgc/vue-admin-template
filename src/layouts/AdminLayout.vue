@@ -26,22 +26,39 @@ function logout() {
         <el-menu-item index="/users">
           <el-icon><User /></el-icon><span>用户管理</span>
         </el-menu-item>
+        <el-sub-menu index="quick-start">
+          <template #title>快速开始</template>
+          <el-menu-item index="/examples/quick-start">项目创建与 SFC</el-menu-item>
+        </el-sub-menu>
         <el-sub-menu index="vue-basics">
           <template #title>Vue 基础</template>
           <el-menu-item index="/examples/reactivity">响应式与组合式 API</el-menu-item>
           <el-menu-item index="/examples/lifecycle">生命周期与侦听</el-menu-item>
+          <el-menu-item index="/examples/templates">模板语法</el-menu-item>
+          <el-menu-item index="/examples/events">事件处理</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="vue-components">
           <template #title>组件</template>
           <el-menu-item index="/examples/components">组件通信</el-menu-item>
+          <el-menu-item index="/examples/component-v-model">组件 v-model</el-menu-item>
+          <el-menu-item index="/examples/dynamic-components">动态组件</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="vue-state">
           <template #title>状态管理</template>
           <el-menu-item index="/examples/pinia">Pinia</el-menu-item>
         </el-sub-menu>
+        <el-sub-menu index="vue-reuse">
+          <template #title>逻辑复用</template>
+          <el-menu-item index="/examples/provide-inject">provide / inject</el-menu-item>
+          <el-menu-item index="/examples/composables">Composables</el-menu-item>
+        </el-sub-menu>
         <el-sub-menu index="vue-routing">
           <template #title>路由</template>
           <el-menu-item index="/examples/router">Vue Router</el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu index="vue-motion">
+          <template #title>动画</template>
+          <el-menu-item index="/examples/transitions">Transition</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="vue-practice">
           <template #title>开发实践</template>

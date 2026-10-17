@@ -13,6 +13,12 @@ const router = createRouter({
         { path: '', name: 'dashboard', component: () => import('../views/DashboardView.vue'), meta: { title: '工作台' } },
         { path: 'users', name: 'users', component: () => import('../views/UsersView.vue'), meta: { title: '用户管理' } },
         {
+          path: 'examples/quick-start',
+          name: 'example-quick-start',
+          component: () => import('../views/examples/QuickStartView.vue'),
+          meta: { title: '快速开始与 SFC', menuPath: '/examples/quick-start' },
+        },
+        {
           path: 'examples/reactivity',
           name: 'example-reactivity',
           component: () => import('../views/examples/ReactivityView.vue'),
@@ -25,10 +31,52 @@ const router = createRouter({
           meta: { title: '生命周期与侦听', menuPath: '/examples/lifecycle' },
         },
         {
+          path: 'examples/templates',
+          name: 'example-templates',
+          component: () => import('../views/examples/TemplatesView.vue'),
+          meta: { title: '模板语法', menuPath: '/examples/templates' },
+        },
+        {
+          path: 'examples/events',
+          name: 'example-events',
+          component: () => import('../views/examples/EventsView.vue'),
+          meta: { title: '事件处理', menuPath: '/examples/events' },
+        },
+        {
           path: 'examples/components',
           name: 'example-components',
           component: () => import('../views/examples/ComponentsView.vue'),
           meta: { title: '组件通信', menuPath: '/examples/components' },
+        },
+        {
+          path: 'examples/component-v-model',
+          name: 'example-component-v-model',
+          component: () => import('../views/examples/ComponentVModelView.vue'),
+          meta: { title: '组件 v-model', menuPath: '/examples/component-v-model' },
+        },
+        {
+          path: 'examples/dynamic-components',
+          name: 'example-dynamic-components',
+          component: () => import('../views/examples/DynamicComponentsView.vue'),
+          meta: { title: '动态组件', menuPath: '/examples/dynamic-components' },
+        },
+        {
+          path: 'examples/provide-inject',
+          name: 'example-provide-inject',
+          component: () => import('../views/examples/ProvideInjectView.vue'),
+          meta: { title: 'provide / inject', menuPath: '/examples/provide-inject' },
+        },
+        {
+          path: 'examples/composables',
+          name: 'example-composables',
+          component: () => import('../views/examples/ComposablesView.vue'),
+          meta: { title: 'Composables 逻辑复用', menuPath: '/examples/composables' },
+        },
+        {
+          path: 'examples/transitions',
+          name: 'example-transitions',
+          component: () => import('../views/examples/TransitionsView.vue'),
+          meta: { title: 'Transition 过渡效果', menuPath: '/examples/transitions' },
         },
         {
           path: 'examples/pinia',

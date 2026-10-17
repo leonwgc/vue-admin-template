@@ -41,7 +41,7 @@ npm run preview
 
 ## Vue 3 交互式示例
 
-登录后从侧栏的 Vue 基础、组件、状态管理、路由和开发实践分组进入各主题页面。页面包含简要概念、可交互演示、完整示例代码和官方文档链接，覆盖响应式与 Composition API、生命周期、组件通信、Pinia、Vue Router、表单校验、自定义指令和 API 请求。Pinia 示例使用独立的内存态 store；表单提交为本地演示；API 页面只读加载 Mock 用户数据，并可安全演示 404 错误。
+登录后从侧栏的快速开始、Vue 基础、组件、逻辑复用、动画、状态管理、路由和开发实践分组进入各主题页面。页面包含简要概念、可交互演示、完整示例代码和官方文档链接，覆盖 SFC、模板语法、事件处理、响应式与 Composition API、生命周期、组件通信和 v-model、动态组件、provide/inject、Composables、Transition、Pinia、Vue Router、表单校验、自定义指令和 API 请求。Pinia 示例使用独立的内存态 store；表单提交为本地演示；API 页面只读加载 Mock 用户数据，并可安全演示 404 错误。
 
 ## 目录
 
