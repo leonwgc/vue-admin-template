@@ -1,8 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: import.meta.env.PROD
+    ? createWebHashHistory(import.meta.env.BASE_URL)
+    : createWebHistory(),
   routes: [
     { path: '/login', name: 'login', component: () => import('../views/LoginView.vue'), meta: { title: '登录' } },
     {

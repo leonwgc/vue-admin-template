@@ -1,13 +1,15 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/vue-admin-template/' : '/',
   plugins: [vue()],
   server: {
     port: 9000,
     open: true
   },
   build: {
+    outDir: 'docs',
     rolldownOptions: {
       output: {
         codeSplitting: {
@@ -19,4 +21,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))

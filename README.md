@@ -22,6 +22,12 @@ npm run build
 npm run preview
 ```
 
+## Deploy to GitHub Pages
+
+Run `npm run build` to generate the production site in `docs/`. In the repository's GitHub Pages settings, select **Deploy from a branch**, choose the branch containing the build, and set the publishing folder to `/docs`.
+
+The production build uses the `/vue-admin-template/` project-site base path and hash-based routing so nested pages work when opened or refreshed on GitHub Pages. The development server continues to use history-based routes at the site root.
+
 ## Tech Stack
 
 - Vue 3.2.47 + `<script setup>` + JavaScript
