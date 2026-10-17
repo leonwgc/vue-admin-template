@@ -1,28 +1,28 @@
-# Vue Admin 学习项目
+# Vue Admin Learning Project
 
-一个简洁的 Vue 3 后台管理示例，包含路由守卫、Pinia 全局用户状态、Axios 请求封装、用户 CRUD 表格和本地 Mock。
+A concise Vue 3 admin dashboard example featuring route guards, global user state with Pinia, an Axios request layer, a user CRUD table, and local mock data.
 
-## 启动
+## Getting Started
 
-需要 Node.js 20.19+ 或 22.12+。
+Requires Node.js 20.19+ or 22.12+.
 
 ```sh
 npm install
 npm run start
 ```
 
-开发服务器默认运行在 `http://localhost:9000/`，并尝试自动打开浏览器。
+The development server runs at `http://localhost:9000/` by default and attempts to open the browser automatically.
 
-登录账号：`admin`，密码：`admin`。这是仅用于本地学习的演示账号，不提供真实身份验证。
+Demo credentials: username `admin`, password `admin`. This account is for local learning only and does not provide real authentication.
 
-## 常用命令
+## Common Commands
 
 ```sh
 npm run build
 npm run preview
 ```
 
-## 技术栈
+## Tech Stack
 
 - Vue 3.2.47 + `<script setup>` + JavaScript
 - Vite 8.3.1 + `@vitejs/plugin-vue` 6.0.9
@@ -31,27 +31,27 @@ npm run preview
 - Element Plus 2.3.14
 - Axios 1.6.8
 
-生产构建使用 Vite 8 内置的 Rolldown；代码分包规则配置在 `vite.config.js` 的 `build.rolldownOptions.output.codeSplitting` 中。
+Production builds use the Rolldown bundler built into Vite 8. Code-splitting rules are configured in `build.rolldownOptions.output.codeSplitting` in `vite.config.js`.
 
-## 数据与请求流程
+## Data and Request Flow
 
-页面从 Pinia `users` Store 读取用户列表并触发增删改查。Store 调用 `src/api/users.js`，经由 `src/api/http.js` 的 Axios 实例、拦截器和 Mock adapter；`src/api/mock.js` 在浏览器 `localStorage` 中读写数据。首次访问会创建示例用户，刷新后变更仍保留在当前浏览器。
+The page reads the user list from the Pinia `users` store and uses it for CRUD operations. The store calls `src/api/users.js`, which uses the Axios instance, interceptors, and mock adapter in `src/api/http.js`. `src/api/mock.js` stores data in the browser's `localStorage`. Sample users are created on first access, and changes persist in the current browser after refresh.
 
-将来接入后端时，可在 `src/api/http.js` 设置真实 API 地址并移除 `adapter: mockAdapter`，然后按后端响应格式调整接口模块。登录当前只保存在本地，用于演示 Router 守卫。
+To connect a backend, set the real API base URL in `src/api/http.js`, remove `adapter: mockAdapter`, and adjust the API modules to match the backend response format. Login state is currently stored locally and is only used to demonstrate the Vue Router guard.
 
-## Vue 3 交互式示例
+## Interactive Vue 3 Examples
 
-登录后从侧栏的快速开始、Vue 基础、组件、逻辑复用、动画、状态管理、路由和开发实践分组进入各主题页面。页面包含简要概念、可交互演示、完整示例代码和官方文档链接，覆盖 SFC、模板语法、事件处理、响应式与 Composition API、生命周期、组件通信和 v-model、动态组件、provide/inject、Composables、Transition、Pinia、Vue Router、表单校验、自定义指令和 API 请求。Pinia 示例使用独立的内存态 store；表单提交为本地演示；API 页面只读加载 Mock 用户数据，并可安全演示 404 错误。
+After logging in, open the topic pages from the sidebar groups: Quick Start, Vue Essentials, Components, Reusability, Transitions, State Management, Routing, and Development Practices. Each page includes key concepts, an interactive demo, complete example code, and links to the official documentation. Topics include SFCs, template syntax, event handling, reactivity and the Composition API, lifecycle hooks, component communication and `v-model`, dynamic components, provide/inject, Composables, Transition, Pinia, Vue Router, form validation, custom directives, and API requests. The Pinia example uses a separate in-memory store; form submission is local-only; the API page loads mock user data read-only and safely demonstrates a 404 error.
 
-## 目录
+## Project Structure
 
 ```text
 src/
-  api/       Axios 实例、用户接口、本地 Mock
-  components/ 可复用页面与示例组件
-  layouts/   后台主布局
-  router/    路由和登录守卫
-  stores/    Pinia 登录与用户状态
-  styles/    全局样式
-  views/     登录、工作台、用户管理和 Vue 3 示例页面
+  api/        Axios instance, user API, and local mock data
+  components/ Reusable page and example components
+  layouts/    Main admin layout
+  router/     Routes and login guard
+  stores/     Pinia auth and user state
+  styles/     Global styles
+  views/      Login, dashboard, user management, and Vue 3 example pages
 ```
