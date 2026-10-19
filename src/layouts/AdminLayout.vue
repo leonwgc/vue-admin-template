@@ -225,7 +225,8 @@ function logout() {
     max-width: 180px;
     overflow: hidden;
     white-space: nowrap;
-    transition: opacity 0.2s ease, max-width 0.2s ease, visibility 0s linear;
+    visibility: visible;
+    transition: opacity 0.2s ease, max-width 0.2s ease;
   }
 
   :global(.sidebar.is-collapsed .nav-menu > .el-menu-item > span),
@@ -234,8 +235,8 @@ function logout() {
     height: auto;
     max-width: 0;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease, max-width 0.2s ease, visibility 0s linear 0.2s;
+    pointer-events: none;
+    transition: opacity 0.2s ease, max-width 0.2s ease;
   }
 }
 
@@ -247,7 +248,6 @@ function logout() {
   :global(.sidebar.is-collapsed .nav-menu > .el-menu-item > span),
   :global(.sidebar.is-collapsed .nav-menu > .el-sub-menu > .el-sub-menu__title > span) {
     transition: none;
-    transition-delay: 0s;
   }
 }
 
