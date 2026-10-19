@@ -4,6 +4,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useAuthStore } from '../stores/auth'
 
 const SIDEBAR_COLLAPSED_KEY = 'vue-admin-sidebar-collapsed'
+const SIDEBAR_LABEL_TRANSITION_MS = 200
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
@@ -11,6 +12,8 @@ const activeMenu = computed(() => route.meta.menuPath || route.path)
 const isDesktop = ref(false)
 const savedCollapsedPreference = ref(false)
 const isCollapsed = computed(() => isDesktop.value && savedCollapsedPreference.value)
+const labelTransition = ref('')
+let labelTransitionTimer
 
 function readSavedCollapseState() {
   savedCollapsedPreference.value = localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === 'true'
@@ -21,7 +24,18 @@ function updateDesktopState() {
 }
 
 function toggleSidebar() {
-  savedCollapsedPreference.value = !savedCollapsedPreference.value
+  const nextCollapsed = !savedCollapsedPreference.value
+  savedCollapsedPreference.value = nextCollapsed
+  window.clearTimeout(labelTransitionTimer)
+  const transitionDuration = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? 0
+    : SIDEBAR_LABEL_TRANSITION_MS
+  labelTransition.value = transitionDuration ? (nextCollapsed ? 'is-collapsing' : 'is-expanding') : ''
+  if (transitionDuration) {
+    labelTransitionTimer = window.setTimeout(() => {
+      labelTransition.value = ''
+    }, transitionDuration)
+  }
   localStorage.setItem(SIDEBAR_COLLAPSED_KEY, String(savedCollapsedPreference.value))
 }
 
@@ -31,7 +45,10 @@ onMounted(() => {
   window.addEventListener('resize', updateDesktopState)
 })
 
-onUnmounted(() => window.removeEventListener('resize', updateDesktopState))
+onUnmounted(() => {
+  window.removeEventListener('resize', updateDesktopState)
+  window.clearTimeout(labelTransitionTimer)
+})
 
 function logout() {
   auth.logout()
@@ -41,10 +58,10 @@ function logout() {
 
 <template>
   <el-container class="admin-shell">
-    <el-aside class="sidebar" :class="{ 'is-collapsed': isCollapsed }" :width="isCollapsed ? '64px' : '232px'">
+    <el-aside class="sidebar" :class="[{ 'is-collapsed': isCollapsed }, labelTransition]" :width="isCollapsed ? '64px' : '232px'">
       <div class="brand"><span class="brand-mark">V</span><span class="brand-name">Vue Admin</span></div>
       <div class="workspace-label">WORKSPACE</div>
-      <el-menu :default-active="activeMenu" :collapse="isCollapsed" router class="nav-menu">
+      <el-menu :default-active="activeMenu" :collapse="isCollapsed" :collapse-transition="false" router class="nav-menu">
         <el-menu-item index="/">
           <el-icon><Odometer /></el-icon><span>工作台</span>
         </el-menu-item>
@@ -197,13 +214,13 @@ function logout() {
   width: 64px;
 }
 
-:global(.sidebar.is-collapsed .nav-menu .el-menu-item),
-:global(.sidebar.is-collapsed .nav-menu .el-sub-menu__title) {
+:global(.sidebar.is-collapsed:not(.is-collapsing) .nav-menu .el-menu-item),
+:global(.sidebar.is-collapsed:not(.is-collapsing) .nav-menu .el-sub-menu__title) {
   justify-content: center;
   padding: 0 !important;
 }
 
-:global(.sidebar.is-collapsed .nav-menu .el-icon) {
+:global(.sidebar.is-collapsed:not(.is-collapsing) .nav-menu .el-icon) {
   margin: 0;
 }
 
@@ -222,21 +239,39 @@ function logout() {
 
   :global(.sidebar .nav-menu > .el-menu-item > span),
   :global(.sidebar .nav-menu > .el-sub-menu > .el-sub-menu__title > span) {
+    width: auto;
+    height: auto;
     max-width: 180px;
     overflow: hidden;
     white-space: nowrap;
     visibility: visible;
-    transition: opacity 0.2s ease, max-width 0.2s ease;
   }
 
   :global(.sidebar.is-collapsed .nav-menu > .el-menu-item > span),
   :global(.sidebar.is-collapsed .nav-menu > .el-sub-menu > .el-sub-menu__title > span) {
-    width: auto;
-    height: auto;
     max-width: 0;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease, max-width 0.2s ease;
+  }
+
+  :global(.sidebar.is-collapsing .nav-menu > .el-menu-item > span),
+  :global(.sidebar.is-collapsing .nav-menu > .el-sub-menu > .el-sub-menu__title > span) {
+    animation: sidebar-label-collapse 0.2s ease-in both;
+  }
+
+  :global(.sidebar.is-expanding .nav-menu > .el-menu-item > span),
+  :global(.sidebar.is-expanding .nav-menu > .el-sub-menu > .el-sub-menu__title > span) {
+    animation: sidebar-label-expand 0.15s ease-out both;
+  }
+
+  @keyframes sidebar-label-collapse {
+    from { max-width: 180px; opacity: 1; }
+    to { max-width: 0; opacity: 0; }
+  }
+
+  @keyframes sidebar-label-expand {
+    from { max-width: 0; opacity: 0; }
+    to { max-width: 180px; opacity: 1; }
   }
 }
 
@@ -246,8 +281,13 @@ function logout() {
   :global(.sidebar .nav-menu > .el-menu-item > span),
   :global(.sidebar .nav-menu > .el-sub-menu > .el-sub-menu__title > span),
   :global(.sidebar.is-collapsed .nav-menu > .el-menu-item > span),
-  :global(.sidebar.is-collapsed .nav-menu > .el-sub-menu > .el-sub-menu__title > span) {
+  :global(.sidebar.is-collapsed .nav-menu > .el-sub-menu > .el-sub-menu__title > span),
+  :global(.sidebar.is-collapsing .nav-menu > .el-menu-item > span),
+  :global(.sidebar.is-collapsing .nav-menu > .el-sub-menu > .el-sub-menu__title > span),
+  :global(.sidebar.is-expanding .nav-menu > .el-menu-item > span),
+  :global(.sidebar.is-expanding .nav-menu > .el-sub-menu > .el-sub-menu__title > span) {
     transition: none;
+    animation: none;
   }
 }
 
