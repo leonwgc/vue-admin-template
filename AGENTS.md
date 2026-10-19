@@ -14,5 +14,4 @@
 
 ## Validation
 
-- Run `npm run build` after code changes. `package.json` currently defines no test script.
 - Keep project setup and data-flow documentation in [README.md](./README.md) up to date when those behaviors change.
