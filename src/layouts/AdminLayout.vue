@@ -65,6 +65,7 @@ function logout() {
         <el-sub-menu index="vue-components">
           <template #title><el-icon><Grid /></el-icon><span>组件</span></template>
           <el-menu-item index="/examples/components">组件通信</el-menu-item>
+          <el-menu-item index="/examples/slots">组件插槽</el-menu-item>
           <el-menu-item index="/examples/component-v-model">组件 v-model</el-menu-item>
           <el-menu-item index="/examples/dynamic-components">动态组件</el-menu-item>
         </el-sub-menu>

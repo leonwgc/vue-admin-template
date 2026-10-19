@@ -51,6 +51,12 @@ const router = createRouter({
           meta: { title: '组件通信', menuPath: '/examples/components' },
         },
         {
+          path: 'examples/slots',
+          name: 'example-slots',
+          component: () => import('../views/examples/SlotsView.vue'),
+          meta: { title: '组件插槽', menuPath: '/examples/slots' },
+        },
+        {
           path: 'examples/component-v-model',
           name: 'example-component-v-model',
           component: () => import('../views/examples/ComponentVModelView.vue'),
