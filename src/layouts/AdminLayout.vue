@@ -75,6 +75,9 @@ function logout() {
         <el-sub-menu index="vue-basics">
           <template #title><el-icon><Reading /></el-icon><span>Vue 基础</span></template>
           <el-menu-item index="/examples/reactivity">响应式与组合式 API</el-menu-item>
+          <el-menu-item index="/examples/reactivity-advanced">响应式进阶</el-menu-item>
+          <el-menu-item index="/examples/watchers">计算属性与侦听器</el-menu-item>
+          <el-menu-item index="/examples/dom-identity">DOM 更新与组件身份</el-menu-item>
           <el-menu-item index="/examples/lifecycle">生命周期与侦听</el-menu-item>
           <el-menu-item index="/examples/templates">模板语法</el-menu-item>
           <el-menu-item index="/examples/events">事件处理</el-menu-item>
@@ -85,10 +88,13 @@ function logout() {
           <el-menu-item index="/examples/slots">组件插槽</el-menu-item>
           <el-menu-item index="/examples/component-v-model">组件 v-model</el-menu-item>
           <el-menu-item index="/examples/dynamic-components">动态组件</el-menu-item>
+          <el-menu-item index="/examples/component-boundaries">组件接口与属性透传</el-menu-item>
+          <el-menu-item index="/examples/builtins">KeepAlive 与异步组件</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="vue-state">
           <template #title><el-icon><Coin /></el-icon><span>状态管理</span></template>
           <el-menu-item index="/examples/pinia">Pinia</el-menu-item>
+          <el-menu-item index="/examples/pinia-advanced">Pinia 进阶</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="vue-reuse">
           <template #title><el-icon><Connection /></el-icon><span>逻辑复用</span></template>
@@ -98,6 +104,7 @@ function logout() {
         <el-sub-menu index="vue-routing">
           <template #title><el-icon><Guide /></el-icon><span>路由</span></template>
           <el-menu-item index="/examples/router">Vue Router</el-menu-item>
+          <el-menu-item index="/examples/router-advanced">路由进阶与守卫</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="vue-motion">
           <template #title><el-icon><VideoPlay /></el-icon><span>动画</span></template>
@@ -108,6 +115,10 @@ function logout() {
           <el-menu-item index="/examples/forms">表单与校验</el-menu-item>
           <el-menu-item index="/examples/directives">自定义指令</el-menu-item>
           <el-menu-item index="/examples/api">API 请求</el-menu-item>
+          <el-menu-item index="/examples/request-advanced">请求竞态与 Composables</el-menu-item>
+          <el-menu-item index="/examples/safety">错误、安全与可访问性</el-menu-item>
+          <el-menu-item index="/examples/engineering">SFC 样式与工程实践</el-menu-item>
+          <el-menu-item index="/examples/performance">渲染原理与性能</el-menu-item>
         </el-sub-menu>
       </el-menu>
       <div class="sidebar-foot"><span class="status-dot"></span><span>本地 Mock 数据已就绪</span></div>
@@ -138,6 +149,14 @@ function logout() {
 </template>
 
 <style scoped>
+@media (min-width: 721px) {
+  .nav-menu { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; }
+  .sidebar-foot { flex-shrink: 0; }
+}
+@media (max-width: 720px) {
+  .nav-menu { min-width: 0; overflow-x: auto; }
+}
+
 .nav-menu :deep(.el-sub-menu__title) {
   height: 43px;
   margin-bottom: 3px;

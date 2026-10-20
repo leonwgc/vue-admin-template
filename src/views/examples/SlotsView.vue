@@ -3,8 +3,15 @@ import { ref } from 'vue'
 import ExamplePage from '../../components/ExamplePage.vue'
 import MessageCard from '../../components/examples/MessageCard.vue'
 import SlotList from '../../components/examples/SlotList.vue'
+import SlotPanel from '../../components/examples/SlotPanel.vue'
+import ExampleSection from '../../components/ExampleSection.vue'
+import panelSource from '../../components/examples/SlotPanel.vue?raw'
 
 const count = ref(0)
+const customContent = ref(false)
+const showHeader = ref(true)
+const slotName = ref('header')
+const parentLabel = ref('父组件主题')
 const tasks = ref([
   { id: 1, label: '理解默认插槽' },
   { id: 2, label: '给内容命名' },
@@ -72,9 +79,40 @@ const resources = [
             <div class="task-row"><span class="task-index">{{ index + 1 }}</span><strong>{{ item.label }}</strong><el-tag size="small" effect="plain">item.id: {{ item.id }}</el-tag></div>
           </template>
         </SlotList>
-        <p class="demo-muted">子组件维护 items 并将 item、index 暴露给插槽；插槽内容在父组件作用域中定义。</p>
+        <p class="demo-muted">父组件维护 tasks，通过 props 传给子组件；子组件将 item、index 暴露给插槽，插槽内容在父组件作用域中定义。</p>
       </div>
     </section>
+    <ExampleSection title="回退内容与条件插槽" description="默认插槽未提供时显示回退文案；具名插槽未提供时，子组件用 $slots 判断并省略整个容器。" :code="panelSource">
+      <el-checkbox v-model="customContent">提供默认插槽</el-checkbox><el-checkbox v-model="showHeader">提供 header 插槽</el-checkbox>
+      <SlotPanel><template v-if="showHeader" #header>可选标题区域</template><template v-if="customContent" #default>父组件提供的正文，替换回退内容。</template></SlotPanel>
+    </ExampleSection>
+    <ExampleSection title="动态具名作用域插槽" description="同一段内容可切换到 header 或 footer；具名插槽也可以接收子组件数据。" :code='`<SlotPanel>
+  <template #[slotName]="{ count }">子组件计数：{{ count }}</template>
+</SlotPanel>`'>
+      <label for="dynamic-slot-name">插槽位置</label><el-select id="dynamic-slot-name" v-model="slotName"><el-option label="header" value="header" /><el-option label="footer" value="footer" /></el-select>
+      <SlotPanel><template #[slotName]="{ count: childCount }">动态插槽 {{ slotName }} · 子组件计数 {{ childCount }}</template></SlotPanel>
+    </ExampleSection>
+    <ExampleSection title="作用域、解构与方法暴露" description="文字读取父组件变量，计数和方法来自子组件的插槽参数；父组件决定按钮外观，子组件持有计数逻辑。" :code='`<SlotPanel #default="{ count: childCount = 0, increment, reset }">
+  {{ parentLabel }}：{{ childCount }}
+  <button @click="increment">增加</button>
+  <button @click="reset">重置</button>
+</SlotPanel>
+// 解构默认值只在属性为 undefined 时生效。
+// 无渲染组件可只输出 slot，把所有 DOM 结构交给父组件。
+// 包装组件透传：
+// <template v-for="(_, name) in $slots" #[name]="slotProps">
+//   <slot :name="name" v-bind="slotProps || {}" />
+// </template>`'>
+      <label for="slot-parent-label">父组件变量</label><el-input id="slot-parent-label" v-model="parentLabel" />
+      <SlotPanel #default="{ count: childCount = 0, increment, reset }"><div class="demo-row"><span>{{ parentLabel }}：{{ childCount }}</span><el-button @click="increment">增加子组件计数</el-button><el-button @click="reset">重置</el-button></div></SlotPanel>
+    </ExampleSection>
+    <ExampleSection title="业务中的表格插槽" description="Element Plus 表格通过作用域插槽暴露 row，由父组件定制标签与操作按钮。" :code='`<el-table-column label="操作">
+  <template #default="{ row }">
+    <el-button @click="row.done = !row.done">切换完成状态</el-button>
+  </template>
+</el-table-column>`'>
+      <el-table :data="tasks" row-key="id"><el-table-column prop="label" label="任务" min-width="140" /><el-table-column label="状态" width="90"><template #default="{ row }"><el-tag :type="row.done ? 'success' : 'info'">{{ row.done ? '已完成' : '待学习' }}</el-tag></template></el-table-column><el-table-column label="操作" width="110"><template #default="{ row }"><el-button size="small" @click="row.done = !row.done">切换状态</el-button></template></el-table-column></el-table>
+    </ExampleSection>
   </ExamplePage>
 </template>
 
