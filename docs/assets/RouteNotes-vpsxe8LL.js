@@ -1,0 +1,1 @@
+import{At as e,C as t,J as n,a as r,nn as i}from"./vue-vendor-2WV6Jefd.js";var a={class:`demo-output`},o={__name:`RouteNotes`,setup(o){let s=r();return(r,o)=>(n(),t(`div`,a,`笔记子路由 · 父级主题：`+i(e(s).params.lessonId)+`。父级页面保持挂载，这里由嵌套 RouterView 渲染。`,1))}};export{o as default};
