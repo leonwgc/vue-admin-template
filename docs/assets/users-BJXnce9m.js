@@ -1,1 +1,0 @@
-import{t as e}from"./http-DdzC2r1C.js";var t={list:()=>e.get(`/users`),create:t=>e.post(`/users`,t),update:(t,n)=>e.put(`/users/${t}`,n),remove:t=>e.delete(`/users/${t}`)};export{t};

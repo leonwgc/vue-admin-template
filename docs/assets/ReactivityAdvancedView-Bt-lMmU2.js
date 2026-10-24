@@ -1,0 +1,19 @@
+import{$ as e,C as t,D as n,Dt as r,E as i,Et as a,G as o,S as s,St as c,Z as l,_t as u,b as d,bt as f,f as p,ft as m,ht as h,kt as g,lt as _,q as v,tn as y,ut as b,wt as x,x as S}from"./vue-vendor-CsbriK0s.js";import{t as C}from"./ExamplePage-k1ZS3Qm1.js";import{t as w}from"./ExampleSection-CZj6jErA.js";var T={class:`demo-row`},E={class:`demo-output`},D=d(`label`,{for:`linked-name`},`toRefs 关联姓名`,-1),O={class:`demo-muted`},k={class:`demo-row`},A={class:`demo-output`,"aria-live":`polite`},j={class:`demo-row`},M={class:`demo-output`,role:`status`},N={key:0},P={__name:`ReactivityAdvancedView`,setup(P){let F=f({count:0,name:`小林`}),{count:I}=F,L=a(F,`count`),{name:R}=r(F),z=c({count:0}),B=x({count:0}),V=c(0),H=c(0);_(()=>z.value.count,()=>V.value++),_(()=>B.value.count,()=>H.value++);let U=c(0),W=c([]),G=c(0),K=c(!1),q=[],J;function Y(){J?.stop(),J=h(),J.run(()=>{b(()=>{q.push(`观察到 count = ${U.value}`),W.value=q.slice(-5),G.value=q.length})}),K.value=!0}function X(){J?.stop(),J=void 0,K.value=!1}return o(X),(r,a)=>{let o=e(`el-button`),c=e(`el-input`);return v(),S(C,{eyebrow:`REACTIVITY · ADVANCED`,title:`响应式进阶`,description:`区分值拷贝与响应式引用，并观察浅层与深层状态的更新边界。`,concepts:[`ref 可承载基本值或对象，普通对象会被深层转换；脚本中通过 .value 读写。`,`reactive 返回代理对象；解构基本类型得到当前值，toRef / toRefs 保留与原属性的联系。`,`shallowRef 只追踪 .value 的替换，适合不可变数据或外部系统对象。`,`effectScope 将其中创建的侦听和计算副作用收集在一起，可统一停止。`],code:`const state = reactive({ count: 0 })
+const { count } = state // 当前数值的拷贝
+const linkedCount = toRef(state, 'count')
+const { name } = toRefs(state)
+// 不要替换 reactive 变量并期待旧引用继续关联新对象。`,resources:[{label:`响应式 API`,url:`https://vuejs.org/api/reactivity-advanced.html`}]},{default:m(()=>[n(w,{title:`解构与 toRef / toRefs`,description:`修改原对象或关联引用，普通解构值始终保留初始值。`},{default:m(()=>[d(`div`,T,[n(o,{onClick:a[0]||=e=>F.count++},{default:m(()=>[i(`原对象 +1`)]),_:1}),n(o,{onClick:a[1]||=e=>L.value++},{default:m(()=>[i(`toRef +1`)]),_:1})]),d(`div`,E,`state.count = `+y(F.count)+` · 普通解构 = `+y(g(I))+` · toRef = `+y(g(L)),1),D,n(c,{id:`linked-name`,modelValue:g(R),"onUpdate:modelValue":a[2]||=e=>u(R)?R.value=e:null},null,8,[`modelValue`]),d(`p`,O,`原对象姓名：`+y(F.name),1)]),_:1}),n(w,{title:`ref 与 shallowRef`,description:`下面只统计对象属性的侦听通知，避免其他界面更新掩盖浅层引用的行为。`,code:`watch(() => deep.value.count, () => deepUpdates.value++)
+watch(() => shallow.value.count, () => shallowUpdates.value++)
+deep.value.count++ // 通知侦听器
+shallow.value.count++ // 不通知
+shallow.value = { count: shallow.value.count + 1 } // 替换后通知`},{default:m(()=>[d(`div`,k,[n(o,{onClick:a[3]||=e=>z.value.count++},{default:m(()=>[i(`深层属性 +1`)]),_:1}),n(o,{onClick:a[4]||=e=>g(B).count++},{default:m(()=>[i(`浅层属性 +1`)]),_:1}),n(o,{onClick:a[5]||=e=>B.value={count:g(B).count+1}},{default:m(()=>[i(`替换浅层对象 +1`)]),_:1})]),d(`div`,A,`深层通知次数：`+y(V.value)+` · 浅层通知次数：`+y(H.value),1)]),_:1},8,[`code`]),n(w,{title:`effectScope：成组管理副作用`,description:`启动后修改计数会记录观察结果；停止后继续修改，记录不会再增加。离开页面也会停止作用域。`,code:`import { effectScope, ref, watchEffect } from 'vue'
+
+const count = ref(0)
+const scope = effectScope()
+scope.run(() => {
+  watchEffect(() => console.log('count:', count.value))
+})
+
+count.value++ // 会运行副作用
+scope.stop()
+count.value++ // 不再运行该副作用`},{default:m(()=>[d(`div`,j,[n(o,{disabled:K.value,onClick:Y},{default:m(()=>[i(`启动观察`)]),_:1},8,[`disabled`]),n(o,{disabled:!K.value,onClick:X},{default:m(()=>[i(`停止观察`)]),_:1},8,[`disabled`]),n(o,{onClick:a[6]||=e=>U.value++},{default:m(()=>[i(`计数 +1`)]),_:1})]),d(`div`,M,`当前 count：`+y(U.value)+` · 观察状态：`+y(K.value?`运行中`:`已停止`)+` · 运行 `+y(G.value)+` 次`,1),W.value.length?(v(),t(`ul`,N,[(v(!0),t(p,null,l(W.value,(e,n)=>(v(),t(`li`,{key:n},y(e),1))),128))])):s(``,!0)]),_:1})]),_:1},8,[`concepts`,`code`,`resources`])}}};export{P as default};

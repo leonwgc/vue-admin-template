@@ -1,6 +1,6 @@
 # Vue Admin Learning Project
 
-A concise Vue 3 admin dashboard example featuring route guards, global user state with Pinia, an Axios request layer, a user CRUD table, and local mock data.
+A concise Vue 3 learning project featuring Pinia examples, an Axios request layer, interactive lessons, and local mock data.
 
 ## Getting Started
 
@@ -11,9 +11,7 @@ npm install
 npm run start
 ```
 
-The development server runs at `http://localhost:9000/` by default and attempts to open the browser automatically.
-
-Demo credentials: username `admin`, password `admin`. This account is for local learning only and does not provide real authentication.
+The development server runs at `http://localhost:9000/` by default and opens the Quick Start lesson automatically. Visiting `/` also redirects to `/examples/quick-start`.
 
 ## Common Commands
 
@@ -41,21 +39,24 @@ Production builds use the Rolldown bundler built into Vite 8. Code-splitting rul
 
 ## Data and Request Flow
 
-The page reads the user list from the Pinia `users` store and uses it for CRUD operations. The store calls `src/api/users.js`, which uses the Axios instance, interceptors, and mock adapter in `src/api/http.js`. `src/api/mock.js` stores data in the browser's `localStorage`. Sample users are created on first access, and changes persist in the current browser after refresh.
+The API lesson calls the read-only `src/api/users.js` endpoint through the Axios instance and mock adapter in `src/api/http.js`. `src/api/mock.js` reads sample users from browser `localStorage`, creating them on first access.
 
-To connect a backend, set the real API base URL in `src/api/http.js`, remove `adapter: mockAdapter`, and adjust the API modules to match the backend response format. Login state is currently stored locally and is only used to demonstrate the Vue Router guard.
+To connect a backend, set the real API base URL in `src/api/http.js`, remove `adapter: mockAdapter`, and adjust the API modules to match the backend response format.
 
 ## Interactive Vue 3 Examples
 
-After logging in, open the topic pages from the sidebar groups: Quick Start, Vue Essentials, Components, Reusability, Transitions, State Management, Routing, and Development Practices. On desktop, use the topbar button to collapse the sidebar to icons; the choice is saved in browser local storage and restored on later visits. The existing horizontal menu remains unchanged on screens 720px wide or narrower. Each topic page includes key concepts, an interactive demo, complete example code, and links to the official documentation. Topics include SFCs, template syntax, event handling, reactivity and the Composition API, lifecycle hooks, component communication, default/named/scoped slots, `v-model`, dynamic components, provide/inject, Composables, Transition, Pinia, Vue Router, form validation, custom directives, and API requests. The Pinia example uses a separate in-memory store; form submission is local-only; the API page loads mock user data read-only and safely demonstrates a 404 error.
+Open the topic pages from the sidebar groups: Quick Start, Vue Essentials, Components, Reusability, Transitions, State Management, Routing, and Development Practices. On desktop, use the topbar button to collapse the sidebar to icons; the choice is saved in browser local storage and restored on later visits. The existing horizontal menu remains unchanged on screens 720px wide or narrower. Each topic page includes key concepts, an interactive demo, example code, and links to the official documentation. Topics include SFCs, template syntax, event handling, reactivity and the Composition API, lifecycle hooks, component communication, default/named/scoped slots, `v-model`, dynamic components, provide/inject, Composables, Transition and TransitionGroup, Pinia, Vue Router, native form bindings and validation, custom directives, and API requests. The Pinia example uses a separate in-memory store; form submission is local-only; the API page loads mock user data read-only and safely demonstrates a 404 error.
+
+Use the topbar search button or press `Command+K` on macOS / `Ctrl+K` on other systems to search lesson pages. Use the arrow keys to select a result, Enter to open it, or Escape to close the dialog.
 
 ### Extended Learning Path
 
-The sidebar now includes the following Vue 3.2-compatible lessons. Each has an interactive example, source snippets, key concepts, and official documentation links:
+The sidebar now includes the following Vue 3.2-compatible lessons. Each has an interactive example, source snippets, key concepts, and official documentation links. Quick Start also demonstrates mounting and unmounting an independent Vue app; the component v-model lesson demonstrates two named models with custom modifiers.
 
 | Route under `/examples/` | Topics |
 | --- | --- |
-| `reactivity-advanced` | `toRef` / `toRefs`, destructuring, `shallowRef`, immutable updates |
+| `project-flow` | URL query → page state → Composable → read-only API → shared Pinia list |
+| `reactivity-advanced` | `toRef` / `toRefs`, destructuring, `shallowRef`, and stopping an `effectScope` |
 | `watchers` | `computed` / `watch` / `watchEffect`, cleanup, debounce, flush timing |
 | `dom-identity` | Template refs, `nextTick`, stable keys versus index keys |
 | `component-boundaries` | Props / Emits, `$attrs`, explicit forwarding, `defineExpose` |
@@ -67,6 +68,8 @@ The sidebar now includes the following Vue 3.2-compatible lessons. Each has an i
 | `safety` | Local error boundaries, text escaping, Teleport, native modal keyboard and focus behavior |
 | `engineering` | Scoped styles, CSS `v-bind`, `:slotted`, TypeScript, testing, plugins, SPA / SSR / SSG |
 | `performance` | Actual DOM batching, render functions, fixed-height virtual list |
+
+The Quick Start group includes a complete feature-flow lesson: search terms live in the route query, pending input and pagination stay in the view, `useTopicSearch` handles request states and cancellation, `learningApi` performs isolated read-only requests, and Pinia shares the learning list across pages. The Forms lesson also demonstrates native `v-model.trim`, `.number`, `.lazy`, and checkbox arrays. The Transitions lesson adds a keyed `TransitionGroup` list with enter, leave, and move states.
 
 Recommended order: reactivity → watchers → DOM / identity → component boundaries → built-ins → request handling, followed by the advanced state, routing, and engineering lessons.
 
@@ -81,8 +84,8 @@ src/
   api/        Axios instance, user API, and local mock data
   components/ Reusable page and example components
   layouts/    Main admin layout
-  router/     Routes and login guard
-  stores/     Pinia auth and user state
+  router/     Routes and Quick Start redirect
+  stores/     Pinia learning-example state
   styles/     Global styles
-  views/      Login, dashboard, user management, and Vue 3 example pages
+  views/      Vue 3 example pages
 ```

@@ -1,4 +1,6 @@
 <script setup>
+import HighlightedCode from './HighlightedCode.vue'
+
 defineProps({
   eyebrow: { type: String, required: true },
   title: { type: String, required: true },
@@ -29,7 +31,7 @@ defineProps({
       </aside>
       <section class="content-card code-card">
         <div class="aside-title"><span class="aside-icon code-icon"><el-icon><Tickets /></el-icon></span><h2>关键代码</h2></div>
-        <pre tabindex="0" aria-label="示例代码"><code>{{ code }}</code></pre>
+        <pre tabindex="0" aria-label="示例代码"><HighlightedCode :code="code" /></pre>
         <div v-if="resources.length" class="doc-links">
           <h3>官方文档</h3>
           <a v-for="resource in resources" :key="resource.url" :href="resource.url" target="_blank" rel="noreferrer">{{ resource.label }}<el-icon><TopRight /></el-icon></a>
@@ -66,7 +68,7 @@ defineProps({
 .concept-card ul{display:grid;gap:9px;margin:14px 0 0;padding:0;list-style:none}
 .concept-card li{position:relative;padding-left:15px;color:#788394;font-size:14px;line-height:1.6}
 .concept-card li:before{position:absolute;top:6px;left:1px;width:5px;height:5px;border-radius:50%;background:#7888ed;content:''}
-:deep(.code-card pre){min-width:0;max-width:100%;max-height:640px;overflow:auto;margin:13px 0 0;padding:12px;border-radius:8px;background:#f7f8fc;color:#526078;font:14px/1.8 'SFMono-Regular',Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;tab-size:2}
+:deep(.code-card pre){min-width:0;max-width:100%;max-height:640px;overflow:auto;margin:13px 0 0;padding:12px;border-radius:8px;background:#f7f8fc;color:#526078;font:13px/1.8 'SFMono-Regular',Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;tab-size:2}
 .doc-links{display:grid;gap:7px;margin-top:14px;padding-top:12px;border-top:1px solid #edf0f5}
 .doc-links h3{margin:0 0 2px;color:#707b8c;font-size:14px}
 .doc-links a{display:flex;align-items:center;gap:5px;color:#5f72df;font-size:14px;line-height:1.5}

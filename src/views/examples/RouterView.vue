@@ -57,7 +57,7 @@ const resources = [
     eyebrow="ROUTING · VUE ROUTER"
     title="Vue Router"
     description="在示例路由内使用 RouterLink 和编程式导航，并观察动态 params 与 query 参数。"
-    :concepts="['RouterLink 适合声明式页面跳转。', 'useRoute 读取当前 params 和 query。', 'useRouter 执行编程式跳转；本示例不改动全局登录守卫。']"
+    :concepts="['RouterLink 适合声明式页面跳转。', 'useRoute 读取当前 params 和 query。', 'useRouter 执行编程式跳转；本示例不改动其他页面的路由。']"
     :code="code"
     :resources="resources"
   >

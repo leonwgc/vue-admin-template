@@ -89,7 +89,7 @@ function addTodo() {
   <ExamplePage
     eyebrow="STATE MANAGEMENT · PINIA"
     title="Pinia 状态管理"
-    description="使用独立的 Pinia store 管理可复用状态；本示例只保存在当前内存中，不影响登录和用户管理数据。"
+    description="使用独立的 Pinia store 管理可复用状态；本示例只保存在当前内存中，不影响其他页面和 API 示例数据。"
     :concepts="['state 保存共享状态，组件可直接读取和更新。', 'getter（此处为 computed）派生状态。', 'action 封装状态变化逻辑，示例切页保留，刷新后重置。']"
     :code="code"
     :resources="resources"

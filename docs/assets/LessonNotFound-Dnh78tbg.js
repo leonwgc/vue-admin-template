@@ -1,0 +1,1 @@
+import{C as e,q as t}from"./vue-vendor-CsbriK0s.js";import{n}from"./index-B_hZ1C-r.js";var r={},i={class:`demo-output`,role:`status`};function a(n,r){return t(),e(`div`,i,`404：没有这个学习子页面。请选择上方的笔记链接返回。`)}var o=n(r,[[`render`,a]]);export{o as default};

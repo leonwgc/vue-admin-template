@@ -1,13 +1,11 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { useAuthStore } from '../stores/auth'
+import GlobalSearch from '../components/GlobalSearch.vue'
 
 const SIDEBAR_COLLAPSED_KEY = 'vue-admin-sidebar-collapsed'
 const SIDEBAR_LABEL_TRANSITION_MS = 200
 const route = useRoute()
-const router = useRouter()
-const auth = useAuthStore()
 const activeMenu = computed(() => route.meta.menuPath || route.path)
 const isDesktop = ref(false)
 const savedCollapsedPreference = ref(false)
@@ -50,27 +48,18 @@ onUnmounted(() => {
   window.clearTimeout(labelTransitionTimer)
 })
 
-function logout() {
-  auth.logout()
-  router.push({ name: 'login' })
-}
 </script>
 
 <template>
   <el-container class="admin-shell">
     <el-aside class="sidebar" :class="[{ 'is-collapsed': isCollapsed }, labelTransition]" :width="isCollapsed ? '64px' : '232px'">
       <div class="brand"><span class="brand-mark">V</span><span class="brand-name">Vue Admin</span></div>
-      <div class="workspace-label">WORKSPACE</div>
+      <div class="workspace-label">LEARNING</div>
       <el-menu :default-active="activeMenu" :collapse="isCollapsed" :collapse-transition="false" router class="nav-menu">
-        <el-menu-item index="/">
-          <el-icon><Odometer /></el-icon><span>工作台</span>
-        </el-menu-item>
-        <el-menu-item index="/users">
-          <el-icon><User /></el-icon><span>用户管理</span>
-        </el-menu-item>
         <el-sub-menu index="quick-start">
           <template #title><el-icon><Flag /></el-icon><span>快速开始</span></template>
           <el-menu-item index="/examples/quick-start">项目创建与 SFC</el-menu-item>
+          <el-menu-item index="/examples/project-flow">完整功能链路</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="vue-basics">
           <template #title><el-icon><Reading /></el-icon><span>Vue 基础</span></template>
@@ -108,7 +97,7 @@ function logout() {
         </el-sub-menu>
         <el-sub-menu index="vue-motion">
           <template #title><el-icon><VideoPlay /></el-icon><span>动画</span></template>
-          <el-menu-item index="/examples/transitions">Transition</el-menu-item>
+          <el-menu-item index="/examples/transitions">Transition 与列表过渡</el-menu-item>
         </el-sub-menu>
         <el-sub-menu index="vue-practice">
           <template #title><el-icon><Tools /></el-icon><span>开发实践</span></template>
@@ -136,12 +125,9 @@ function logout() {
           >
             <el-icon><Expand v-if="isCollapsed" /><Fold v-else /></el-icon>
           </button>
-          <div class="crumb"><span>工作空间</span><el-icon><ArrowRight /></el-icon><strong>{{ route.meta.title }}</strong></div>
+          <div class="crumb"><span>学习空间</span><el-icon><ArrowRight /></el-icon><strong>{{ route.meta.title }}</strong></div>
         </div>
-        <el-dropdown @command="logout">
-          <button class="profile-button" type="button"><span class="avatar">A</span><span class="profile-name">{{ auth.username }}</span><el-icon><ArrowDown /></el-icon></button>
-          <template #dropdown><el-dropdown-menu><el-dropdown-item command="logout">退出登录</el-dropdown-item></el-dropdown-menu></template>
-        </el-dropdown>
+        <GlobalSearch />
       </el-header>
       <main class="page-content"><router-view /></main>
     </el-container>
@@ -162,7 +148,7 @@ function logout() {
   margin-bottom: 3px;
   border-radius: 9px;
   color: #707a8a;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .nav-menu :deep(.el-sub-menu__title:hover) {
@@ -185,7 +171,7 @@ function logout() {
   height: 38px;
   padding-right: 8px;
   padding-left: 37px !important;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .topbar-leading {

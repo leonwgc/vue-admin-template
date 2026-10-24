@@ -1,19 +1,15 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import { useAuthStore } from '../stores/auth'
 
 const router = createRouter({
   history: import.meta.env.PROD
     ? createWebHashHistory(import.meta.env.BASE_URL)
     : createWebHistory(),
   routes: [
-    { path: '/login', name: 'login', component: () => import('../views/LoginView.vue'), meta: { title: '登录' } },
     {
       path: '/',
       component: () => import('../layouts/AdminLayout.vue'),
-      meta: { requiresAuth: true },
       children: [
-        { path: '', name: 'dashboard', component: () => import('../views/DashboardView.vue'), meta: { title: '工作台' } },
-        { path: 'users', name: 'users', component: () => import('../views/UsersView.vue'), meta: { title: '用户管理' } },
+        { path: '', redirect: { name: 'example-quick-start' } },
         {
           path: 'examples/reactivity-advanced',
           name: 'example-reactivity-advanced',
@@ -91,6 +87,12 @@ const router = createRouter({
           meta: { title: '快速开始与 SFC', menuPath: '/examples/quick-start' },
         },
         {
+          path: 'examples/project-flow',
+          name: 'example-project-flow',
+          component: () => import('../views/examples/ProjectFlowView.vue'),
+          meta: { title: '完整功能链路', menuPath: '/examples/project-flow' },
+        },
+        {
           path: 'examples/reactivity',
           name: 'example-reactivity',
           component: () => import('../views/examples/ReactivityView.vue'),
@@ -154,7 +156,7 @@ const router = createRouter({
           path: 'examples/transitions',
           name: 'example-transitions',
           component: () => import('../views/examples/TransitionsView.vue'),
-          meta: { title: 'Transition 过渡效果', menuPath: '/examples/transitions' },
+          meta: { title: 'Transition 与列表过渡', menuPath: '/examples/transitions' },
         },
         {
           path: 'examples/pinia',
@@ -192,14 +194,8 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to) => {
-  const auth = useAuthStore()
-  if (to.meta.requiresAuth && !auth.isLoggedIn) return { name: 'login', query: { redirect: to.fullPath } }
-  if (to.name === 'login' && auth.isLoggedIn) return { name: 'dashboard' }
-})
-
 router.afterEach((to) => {
-  document.title = `${to.meta.title || '管理后台'} · Vue Admin 学习项目`
+  document.title = `${to.meta.title || 'Vue 3 示例'} · Vue Admin 学习项目`
 })
 
 export default router

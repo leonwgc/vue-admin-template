@@ -1,0 +1,21 @@
+import{$ as e,C as t,D as n,E as r,J as i,S as a,St as o,X as s,Z as c,a as l,b as u,f as d,ft as f,kt as p,l as m,lt as h,o as g,q as _,tn as v,x as y,y as b}from"./vue-vendor-CsbriK0s.js";import{p as x}from"./element-plus-BrLZTTAh.js";import{n as S}from"./index-B_hZ1C-r.js";import{t as C}from"./ExamplePage-k1ZS3Qm1.js";import{t as w}from"./learningCart-O7Y-vnK6.js";import{t as T}from"./useTopicSearch-wB81sJLI.js";var E=e=>(s(`data-v-e07c46d7`),e=e(),i(),e),D={class:`content-card playground-card`},O=E(()=>u(`div`,{class:`playground-title`},[u(`div`,null,[u(`h2`,null,`搜索并加入学习清单`),u(`p`,null,`输入关键词后提交，观察地址、请求状态和跨页面共享的清单。`)])],-1)),k={class:`playground-content`},A=E(()=>u(`div`,{class:`flow-steps`,"aria-label":`功能数据流`},[u(`span`,null,`路由 query`),u(`span`,null,`页面`),u(`span`,null,`Composable`),u(`span`,null,`API`),u(`span`,null,`Pinia`)],-1)),j=[`onSubmit`],M={class:`demo-output`,role:`status`},N={key:1,class:`demo-muted`},P={key:3,class:`topic-list`},F={key:5,class:`demo-row`},I=E(()=>u(`span`,{class:`demo-muted`},`清单会在页面切换后保留。`,-1)),L=S({__name:`ProjectFlowView`,setup(i){let s=l(),S=g(),E=b(()=>typeof s.query.keyword==`string`?s.query.keyword:``),L=o(E.value),R=o(1);h(E,e=>{L.value=e,R.value=1},{flush:`sync`});let{result:z,status:B,error:V,reload:H}=T(()=>({keyword:E.value,page:R.value,delay:300})),U=w(),{items:W,total:G}=m(U);function K(){let e=L.value.trim();S.replace({name:`example-project-flow`,query:e?{keyword:e}:{}})}return(i,o)=>{let s=e(`el-input`),l=e(`el-button`),m=e(`el-alert`),h=e(`el-empty`),g=e(`el-pagination`),b=e(`RouterLink`);return _(),y(C,{eyebrow:`GETTING STARTED · FEATURE FLOW`,title:`从路由到页面：完整功能链路`,description:`把路由参数、页面状态、Composable、API 请求和 Pinia 串成一个可操作的 Vue 功能。`,concepts:[`路由 query 保存可分享的筛选条件；未提交的输入与当前页码留在页面本地。`,`Composable 负责异步请求状态及过期请求清理；API 模块统一通过 Axios 发请求。`,`多个页面要共用的学习清单交给 Pinia；搜索结果本身不需要放入全局 Store。`,`分别呈现加载、无结果、失败和成功；本例只读取隔离的学习数据，不写入用户 Mock。`],code:`// ProjectFlowView.vue：页面只持有输入和页码
+const route = useRoute()
+const router = useRouter()
+const keyword = computed(() => typeof route.query.keyword === 'string'
+  ? route.query.keyword : '')
+const page = ref(1)
+const { result, status, error, reload } = useTopicSearch(() => ({
+  keyword: keyword.value,
+  page: page.value,
+  delay: 300,
+}))
+const cart = useLearningCartStore()
+
+function search() {
+  router.replace({ name: 'example-project-flow',
+    query: input.value.trim() ? { keyword: input.value.trim() } : {} })
+}
+
+// 模板：按 status 显示加载、空状态、错误和结果；
+// 点击结果时调用 cart.add(title)。
+// useTopicSearch 负责取消旧请求；learningApi 通过 Axios 读取本地示例数据。`,resources:[{label:`路由与状态`,url:`https://router.vuejs.org/guide/essentials/dynamic-matching.html`},{label:`Composables`,url:`https://vuejs.org/guide/reusability/composables.html`},{label:`状态管理`,url:`https://vuejs.org/guide/scaling-up/state-management.html`}]},{default:f(()=>[u(`section`,D,[O,u(`div`,k,[A,u(`form`,{class:`demo-row`,onSubmit:x(K,[`prevent`])},[n(s,{modelValue:L.value,"onUpdate:modelValue":o[0]||=e=>L.value=e,"aria-label":`学习主题关键词`,placeholder:`试试 Vue、Pinia 或不存在的词`,clearable:``},null,8,[`modelValue`]),n(l,{"native-type":`submit`,type:`primary`},{default:f(()=>[r(`搜索`)]),_:1}),n(l,{disabled:p(B)===`loading`,onClick:p(H)},{default:f(()=>[r(`重试`)]),_:1},8,[`disabled`,`onClick`])],40,j),u(`div`,M,`地址中的关键词：`+v(p(E)||`全部`)+` · 请求状态：`+v(p(B))+` · 清单共 `+v(p(G))+` 项`,1),p(B)===`error`?(_(),y(m,{key:0,title:p(V),type:`error`,closable:!1,"show-icon":``},null,8,[`title`])):p(B)===`loading`?(_(),t(`p`,N,`正在读取学习主题…`)):p(B)===`empty`?(_(),y(h,{key:2,description:`没有匹配的主题，请换一个关键词`,"image-size":60})):p(B)===`success`?(_(),t(`ul`,P,[(_(!0),t(d,null,c(p(z).items,e=>(_(),t(`li`,{key:e},[u(`span`,null,v(e),1),n(l,{size:`small`,onClick:t=>p(U).add(e)},{default:f(()=>[r(`加入清单`)]),_:2},1032,[`onClick`])]))),128))])):a(``,!0),p(B)===`success`&&p(z).total>3?(_(),y(g,{key:4,"current-page":R.value,"onUpdate:currentPage":o[1]||=e=>R.value=e,"page-size":3,total:p(z).total,layout:`prev, pager, next`},null,8,[`current-page`,`total`])):a(``,!0),p(W).length?(_(),t(`div`,F,[I,n(b,{to:`/examples/pinia-advanced`},{default:f(()=>[r(`去 Pinia 页面查看清单 →`)]),_:1})])):a(``,!0)])])]),_:1},8,[`resources`])}}},[[`__scopeId`,`data-v-e07c46d7`]]);export{L as default};

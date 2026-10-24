@@ -23,10 +23,6 @@ function readUsers() {
   return [...initialUsers]
 }
 
-function saveUsers(users) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(users))
-}
-
 function response(config, data, status = 200) {
   return { config, data, status, statusText: 'OK', headers: {}, request: {} }
 }
@@ -35,30 +31,6 @@ export async function mockAdapter(config) {
   await wait()
   const method = config.method.toLowerCase()
   const path = config.url.replace(/^\/api/, '').replace(/\/$/, '')
-  let data
-
-  if (path === '/users' && method === 'get') data = readUsers()
-  else if (path === '/users' && method === 'post') {
-    const users = readUsers()
-    const now = new Date()
-    const createdAt = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
-    const user = { ...JSON.parse(config.data), id: Date.now(), createdAt }
-    saveUsers([user, ...users])
-    data = user
-  } else {
-    const match = path.match(/^\/users\/(\d+)$/)
-    if (!match) return Promise.reject({ config, message: '接口不存在', response: { data: { message: '接口不存在' }, status: 404 } })
-    const id = Number(match[1])
-    if (method === 'put') {
-      const users = readUsers()
-      const updated = users.map((user) => user.id === id ? { ...user, ...JSON.parse(config.data) } : user)
-      saveUsers(updated)
-      data = updated.find((user) => user.id === id)
-    } else if (method === 'delete') {
-      saveUsers(readUsers().filter((user) => user.id !== id))
-      data = { success: true }
-    } else return Promise.reject({ config, message: '不支持的请求方法', response: { data: { message: '不支持的请求方法' }, status: 405 } })
-  }
-
-  return response(config, data)
+  if (path === '/users' && method === 'get') return response(config, readUsers())
+  return Promise.reject({ config, message: '接口不存在', response: { data: { message: '接口不存在' }, status: 404 } })
 }

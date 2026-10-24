@@ -6,7 +6,7 @@ export default defineConfig(({ command }) => ({
   plugins: [vue()],
   server: {
     port: 9000,
-    open: true
+    open: '/examples/quick-start'
   },
   build: {
     outDir: 'docs',

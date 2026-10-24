@@ -100,7 +100,7 @@ const resources = [
     eyebrow="PRACTICE · API REQUEST"
     title="API 请求与状态处理"
     description="复用现有只读 Mock 用户接口，演示请求、加载、响应数据与错误处理，不会更改用户数据。"
-    :concepts="['接口模块封装请求方法，页面不直接拼接 CRUD 逻辑。', 'loading 状态反馈请求过程，finally 确保状态复位。', '失败时保留可读错误信息；错误通知仍由现有 Axios 拦截器处理。']"
+    :concepts="['接口模块封装请求方法，页面不直接拼接请求细节。', 'loading 状态反馈请求过程，finally 确保状态复位。', '失败时保留可读错误信息；错误通知仍由现有 Axios 拦截器处理。']"
     :code="code"
     :resources="resources"
   >

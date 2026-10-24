@@ -1,1 +1,0 @@
-import{C as e,J as t}from"./vue-vendor-2WV6Jefd.js";import{r as n}from"./index-KdiVrdr8.js";var r={},i={class:`demo-output`};function a(n,r){return t(),e(`div`,i,`异步组件已加载：构建时生成独立代码块，首次打开才执行 import()。`)}var o=n(r,[[`render`,a]]);export{o as default};
